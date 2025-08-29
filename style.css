@@ -1,98 +1,67 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   background: #fff8f0;
   color: #333;
 }
-header, footer {
-  text-align: center;
-  padding: 1em;
+header {
   background: #ff7a00;
   color: white;
+  text-align: center;
+  padding: 1rem;
 }
-#menu { padding: 1em; }
-#menu-items { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:1em; }
-.menu-item { border:1px solid #ccc; padding:0.5em; background:#fff; border-radius:8px; }
+h2 { color: #ff7a00; }
+section { padding: 1rem; }
 
-footer a {
-  margin: 0 1em;
+.button {
+  display: inline-block;
+  background: #ff7a00;
   color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: bold;
+  margin: 0.2rem;
 }
+
 #settings-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
   background: #ff7a00;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
   color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px; height: 50px;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-/* Login Screen */
-#login-screen {
+#settings-panel {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-#login-screen.hidden { display: none; }
-.login-box {
-  background: white;
-  padding: 2em;
-  border-radius: 10px;
-  text-align: center;
-  width: 300px;
-}
-.login-box input { display:block; width:100%; padding:0.5em; margin:0.5em 0; }
-.login-box button { padding:0.5em 1em; background:#ff7a00; border:none; color:white; cursor:pointer; }
-.error { color: red; margin-top: 0.5em; }
-
-/* Admin Panel */
-#admin-panel {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: #f9f9f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-#admin-panel.hidden { display: none; }
-.admin-content {
-  background: white;
-  width: 90%;
-  height: 90%;
-  padding: 1em;
-  border-radius: 10px;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
   display: flex;
   flex-direction: column;
 }
-.scrollable {
+#settings-panel.hidden { display: none; }
+
+.settings-content {
   flex: 1;
+  background: white;
+  padding: 1rem;
   overflow-y: auto;
-  border: 1px solid #ddd;
-  margin-bottom: 1em;
-  padding: 1em;
 }
-.admin-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1em;
+.settings-footer {
+  background: #f0f0f0;
+  padding: 0.5rem;
+  text-align: right;
+  position: sticky;
+  bottom: 0;
 }
-.admin-footer button {
-  padding: 0.5em 1em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+
+@media (max-width: 768px) {
+  header h1 { font-size: 1.5rem; }
+  .button { display: block; margin: 0.5rem 0; }
+  iframe { height: 200px; }
 }
-#save-changes { background:#28a745; color:white; }
-#cancel-changes { background:#dc3545; color:white; }

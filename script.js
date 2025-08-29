@@ -1,65 +1,65 @@
-let menuItems = JSON.parse(localStorage.getItem('menuItems')) || [];
-if(menuItems.length === 0){
-  for(let i=1;i<=34;i++){
-    menuItems.push({name:`Item ${i}`, price: Math.floor(Math.random()*5)+2, img:"https://via.placeholder.com/150"});
-  }
-}
-function renderMenu(){
-  const menuDiv=document.getElementById('menu-items');
-  menuDiv.innerHTML='';
-  menuItems.forEach((item,i)=>{
-    let div=document.createElement('div');
-    div.className='menu-item';
-    div.innerHTML=`<img src="${item.img}" alt="${item.name}" style="width:100%;border-radius:8px;">
-                   <h4>${item.name}</h4><p>$${item.price}</p>`;
-    menuDiv.appendChild(div);
+const settingsBtn = document.getElementById('settings-btn');
+const settingsPanel = document.getElementById('settings-panel');
+const saveBtn = document.getElementById('save-settings');
+const closeBtn = document.getElementById('close-settings');
+const aboutText = document.getElementById('about-text');
+const editAbout = document.getElementById('edit-about');
+const menuItemsDiv = document.getElementById('menu-items');
+const editMenuDiv = document.getElementById('edit-menu-items');
+
+let menu = JSON.parse(localStorage.getItem('menuData')) || [
+  {category:'Hot', name:'Espresso', price:2},
+  {category:'Iced', name:'Iced Latte', price:3},
+  {category:'Smoothie', name:'Mango Smoothie', price:4},
+  {category:'Milkshake', name:'Vanilla Milkshake', price:4},
+  {category:'Boba', name:'Brown Sugar Boba', price:5},
+  {category:'Frappe', name:'Mocha Frappe', price:4.5},
+  {category:'Shisha', name:'Double Apple Shisha', price:6}
+];
+
+function renderMenu() {
+  menuItemsDiv.innerHTML = '';
+  menu.forEach((item, index) => {
+    let div = document.createElement('div');
+    div.textContent = `${item.category}: ${item.name} - $${item.price}`;
+    menuItemsDiv.appendChild(div);
   });
 }
-renderMenu();
 
-document.getElementById('settings-btn').addEventListener('click',()=>{
-  document.getElementById('login-screen').classList.remove('hidden');
+function renderEditMenu() {
+  editMenuDiv.innerHTML = '';
+  menu.forEach((item, index) => {
+    let wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+      <input value="${item.category}" placeholder="Category">
+      <input value="${item.name}" placeholder="Name">
+      <input type="number" value="${item.price}" step="0.1">
+    `;
+    editMenuDiv.appendChild(wrapper);
+  });
+}
+
+settingsBtn.addEventListener('click', () => {
+  editAbout.value = aboutText.textContent.trim();
+  renderEditMenu();
+  settingsPanel.classList.remove('hidden');
 });
 
-document.getElementById('login-submit').addEventListener('click',()=>{
-  const user=document.getElementById('login-username').value;
-  const pass=document.getElementById('login-password').value;
-  if(user==='admin' && pass==='latte112233'){
-    document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('admin-panel').classList.remove('hidden');
-    loadAdminPanel();
-  }else{
-    document.getElementById('login-error').innerText='Invalid login';
-  }
+closeBtn.addEventListener('click', () => {
+  settingsPanel.classList.add('hidden');
 });
 
-function loadAdminPanel(){
-  document.getElementById('edit-about').value=document.getElementById('about-text').innerText;
-  const editMenu=document.getElementById('edit-menu');
-  editMenu.innerHTML='';
-  menuItems.forEach((item,i)=>{
-    let div=document.createElement('div');
-    div.innerHTML=`<input type="text" value="${item.name}" id="name-${i}"/>
-                   <input type="number" value="${item.price}" id="price-${i}"/>
-                   <input type="text" value="${item.img}" id="img-${i}" style="width:60%"/>`;
-    editMenu.appendChild(div);
+saveBtn.addEventListener('click', () => {
+  aboutText.textContent = editAbout.value;
+  let updated = [];
+  [...editMenuDiv.children].forEach(child => {
+    let [cat, name, price] = child.querySelectorAll('input');
+    updated.push({category:cat.value, name:name.value, price:parseFloat(price.value)});
   });
-}
-
-document.getElementById('save-changes').addEventListener('click',()=>{
-  document.getElementById('about-text').innerText=document.getElementById('edit-about').value;
-  menuItems=menuItems.map((item,i)=>{
-    return {
-      name:document.getElementById('name-'+i).value,
-      price:document.getElementById('price-'+i).value,
-      img:document.getElementById('img-'+i).value
-    };
-  });
-  localStorage.setItem('menuItems',JSON.stringify(menuItems));
+  menu = updated;
+  localStorage.setItem('menuData', JSON.stringify(menu));
   renderMenu();
-  document.getElementById('admin-panel').classList.add('hidden');
+  settingsPanel.classList.add('hidden');
 });
 
-document.getElementById('cancel-changes').addEventListener('click',()=>{
-  document.getElementById('admin-panel').classList.add('hidden');
-});
+renderMenu();
