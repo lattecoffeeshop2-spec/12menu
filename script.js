@@ -1,47 +1,58 @@
-let currentSlide = 0;
-const slides = document.querySelectorAll('.carousel img');
-if (slides.length > 0) {
-  slides[0].classList.add('active');
-  setInterval(() => {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-  }, 3000);
-}
+let settingsBtn = document.getElementById("settingsBtn");
+let settingsPanel = document.getElementById("settingsPanel");
+let loginDiv = settingsPanel.querySelector(".login");
+let settingsContent = settingsPanel.querySelector(".settingsContent");
+let loginBtn = document.getElementById("loginBtn");
+let saveBtn = document.getElementById("saveBtn");
+let closeBtn = document.getElementById("closeBtn");
+let changeCredsBtn = document.getElementById("changeCreds");
 
-const settingsBtn = document.getElementById('settingsBtn');
-const loginModal = document.getElementById('loginModal');
-const loginBtn = document.getElementById('loginBtn');
-const settingsPanel = document.getElementById('settingsPanel');
+let adminUser = localStorage.getItem("adminUser") || "admin";
+let adminPass = localStorage.getItem("adminPass") || "latte112233";
 
-let adminUser = "admin";
-let adminPass = "latte112233";
+settingsBtn.onclick = () => {
+  settingsPanel.classList.remove("hidden");
+  loginDiv.classList.remove("hidden");
+  settingsContent.classList.add("hidden");
+};
 
-settingsBtn.addEventListener('click', () => {
-  loginModal.style.display = 'flex';
-});
-
-loginBtn.addEventListener('click', () => {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
-  if (user === adminUser && pass === adminPass) {
-    loginModal.style.display = 'none';
-    settingsPanel.classList.remove('hidden');
+loginBtn.onclick = () => {
+  let u = document.getElementById("username").value;
+  let p = document.getElementById("password").value;
+  if (u === adminUser && p === adminPass) {
+    loginDiv.classList.add("hidden");
+    settingsContent.classList.remove("hidden");
   } else {
-    alert('Invalid credentials');
+    alert("Wrong username or password");
   }
-});
+};
 
-document.getElementById('changeCredentialsBtn').addEventListener('click', () => {
-  const newUser = prompt("Enter new username:", adminUser);
-  const newPass = prompt("Enter new password:", adminPass);
-  if (newUser && newPass) {
-    adminUser = newUser;
-    adminPass = newPass;
+changeCredsBtn.onclick = () => {
+  let newUser = prompt("Enter new username:");
+  let newPass = prompt("Enter new password:");
+  if(newUser && newPass){
+    localStorage.setItem("adminUser", newUser);
+    localStorage.setItem("adminPass", newPass);
+    adminUser = newUser; adminPass = newPass;
     alert("Credentials updated!");
   }
-});
+};
 
-document.getElementById('saveBtn').addEventListener('click', () => {
-  alert("All changes saved!");
-});
+saveBtn.onclick = () => {
+  let aboutText = document.getElementById("aboutText").value;
+  if(aboutText) localStorage.setItem("aboutText", aboutText);
+  alert("Saved all changes!");
+};
+
+closeBtn.onclick = () => {
+  settingsPanel.classList.add("hidden");
+};
+
+// About carousel
+let carouselImages = document.querySelectorAll(".about-carousel img");
+let current = 0;
+setInterval(() => {
+  carouselImages[current].classList.remove("active");
+  current = (current + 1) % carouselImages.length;
+  carouselImages[current].classList.add("active");
+}, 3000);

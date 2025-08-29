@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Latte Coffee Shop</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latte Coffee</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Latte Coffee Shop</h1>
+    <h1>Latte Coffee</h1>
     <button id="settingsBtn">⚙️</button>
   </header>
 
   <section id="about">
     <h2>About Us</h2>
-    <div class="carousel">
-      <img src="about1.jpg" alt="About 1">
+    <div class="about-carousel">
+      <img src="about1.jpg" class="active" alt="About 1">
       <img src="about2.jpg" alt="About 2">
       <img src="about3.jpg" alt="About 3">
       <img src="about4.jpg" alt="About 4">
     </div>
-    <p id="aboutText">A cozy place to enjoy fresh coffee, study, work, or just relax with friends. Every cup is made with love to make you feel at home.</p>
+    <p>A cozy place to enjoy fresh coffee, study, work, or just relax with friends.
+    Every cup is made with love to make you feel at home.</p>
   </section>
 
   <section id="menu">
     <h2>Menu</h2>
-    <div class="category-bar">
-      <button>Hot</button>
-      <button>Iced</button>
-      <button>Refreshers</button>
-      <button>Smoothie</button>
-      <button>Milkshake</button>
-      <button>Boba</button>
-      <button>Frappe</button>
-      <button>Shisha</button>
+    <div id="categoriesBar">
+      <button data-cat="Hot">Hot</button>
+      <button data-cat="Iced">Iced</button>
+      <button data-cat="Refreshers">Refreshers</button>
+      <button data-cat="Smoothie">Smoothie</button>
+      <button data-cat="Milkshake">Milkshake</button>
+      <button data-cat="Boba">Boba</button>
+      <button data-cat="Frappe">Frappe</button>
+      <button data-cat="Shisha">Shisha</button>
     </div>
     <div id="menuItems"></div>
   </section>
 
   <section id="location">
-    <h2>Find Us</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d..."
-            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <h2>Location</h2>
+    <iframe src="https://maps.app.goo.gl/KT77yjngPeJCQvm7A?g_st=icp"
+      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
   </section>
 
   <footer>
     <a href="https://wa.me/96171418947" target="_blank">WhatsApp</a>
-    <a href="https://www.instagram.com/latte_coffe_shop?igsh=MWNyeXhvc3hyYTZ0eA%3D%3D&utm_source=qr" target="_blank">Instagram</a>
+    <a href="https://www.instagram.com/latte_coffe_shop" target="_blank">Instagram</a>
   </footer>
 
-  <!-- Login Modal -->
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
+  <!-- Settings Panel -->
+  <div id="settingsPanel" class="hidden">
+    <div class="login hidden">
       <h2>Admin Login</h2>
       <input type="text" id="username" placeholder="Username">
       <input type="password" id="password" placeholder="Password">
       <button id="loginBtn">Login</button>
     </div>
-  </div>
-
-  <!-- Settings Panel -->
-  <div id="settingsPanel" class="hidden">
-    <h2>Admin Settings</h2>
-    <textarea id="editAbout"></textarea>
-    <div id="editMenu"></div>
-    <button id="changeCredentialsBtn">Change Username/Password</button>
-    <button id="saveBtn">Save All Changes</button>
+    <div class="settingsContent hidden">
+      <h2>Settings</h2>
+      <textarea id="aboutText"></textarea>
+      <button id="changeCreds">Change Username & Password</button>
+      <div id="menuEditor"></div>
+      <button id="saveBtn">Save All</button>
+      <button id="closeBtn">Close</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
